@@ -1,0 +1,38 @@
+:root {
+  --bg: white;
+  --panel: #161b2a;
+  --blue: #3b82f6;
+  --yellow: #eab308;
+  --green: #22c55e;
+  --red: #ef4444;
+  --fork-idle: #4b5563;
+  --text-color: #f3f4f6;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-color);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+#app {
+  width: 100%;
+  max-width: 1200px;
+  /* Slightly wider to fit everything */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

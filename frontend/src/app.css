@@ -1,0 +1,283 @@
+.main-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 30px;
+    text-align: center;
+    color: var(--blue);
+    text-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    height: 600px;
+    /* Slightly taller for the layout */
+}
+
+.canvas,
+.controls {
+    background: var(--panel);
+    border-radius: 15px;
+    border: 1px solid #2d3748;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ESCENA VISUAL */
+.canvas {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-table {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border: 10px solid #1f2937;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1a202c 0%, #0b0f19 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+}
+
+/* 1. Philosophers */
+.phil {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 4px solid var(--fork-idle);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.4s;
+    z-index: 10;
+    margin-top: -45px;
+    margin-left: -45px;
+}
+
+.phil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.phil.Pensando {
+    border-color: var(--blue);
+    box-shadow: 0 0 15px var(--blue);
+}
+
+.phil.Hambriento {
+    border-color: var(--yellow);
+    box-shadow: 0 0 15px var(--yellow);
+}
+
+.phil.Comiendo {
+    border-color: var(--green);
+    box-shadow: 0 0 25px var(--green);
+}
+
+.name-badge {
+    position: absolute;
+    bottom: -25px;
+    padding: 4px 12px;
+    background-color: var(--panel);
+    color: white;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* 2. Plates */
+.plate {
+    position: absolute;
+    margin-top: -35px;
+    margin-left: -35px;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, #2a5298 0%, #1e3c72 100%);
+    border-radius: 50%;
+    border: 3px solid #112244;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 2px 4px 8px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.spaghetti {
+    width: 50px;
+    height: 50px;
+    background-color: #fff8e7;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.spaghetti-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.plate.eating-plate .spaghetti {
+    animation: eat-pasta 1s infinite alternate;
+}
+
+/* 3. Chopsticks (Palillos) */
+.chopstick-container {
+    position: absolute;
+    margin-top: -20px;
+    margin-left: -20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 4;
+}
+
+.chopstick {
+    width: 4px;
+    height: 50px;
+    background-color: var(--fork-idle);
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    transition: 0.3s;
+}
+
+/* When a chopstick is picked up, color it green like the "active" fork */
+.chopstick-container.active .chopstick {
+    background-color: var(--green);
+    box-shadow: 0 0 15px var(--green);
+}
+
+/* LEYENDA Y CONTROLES */
+.controls {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    font-size: 0.85rem;
+    padding: 15px;
+    background: #0b0f19;
+    border-radius: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+button {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.2s;
+}
+
+.btn-run {
+    background: var(--blue);
+    color: white;
+}
+
+.btn-run:hover {
+    background: #2563eb;
+}
+
+.btn-danger {
+    background: var(--red);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+.history-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+#log {
+    background: #000;
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+    padding: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+.log-entry {
+    margin-bottom: 4px;
+    border-left: 3px solid #444;
+    padding-left: 8px;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px);
+    }
+
+    50% {
+        transform: translate(-1px, -1px);
+    }
+}
+
+@keyframes eat-pasta {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    100% {
+        transform: scale(0.95) rotate(5deg);
+    }
+}
